@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void subseqeunce(vector<int>&,int ,vector<int>&,int,int ,int );
+void subseqeunce(vector<int>&,int ,vector<int>&,int,int);
 int main()
 {
     vector<int>v1;
@@ -15,13 +15,13 @@ int main()
         v.push_back(x);
         
     }
-    subseqeunce(v,0,v1,v.size(),0,3);
+    subseqeunce(v,0,v1,v.size(),k);
 }
-void subseqeunce(vector<int>&v,int idx,vector<int>&v1,int n,int sum,int k)
+void subseqeunce(vector<int>&v,int idx,vector<int>&v1,int n,int sum)
 {
     if(idx==n)
    {
-        if(sum%k==0 && v1.size()!=0)
+        if(sum==0 )
         {
             for(int i=0;i<v1.size();i++)
             {
@@ -30,13 +30,16 @@ void subseqeunce(vector<int>&v,int idx,vector<int>&v1,int n,int sum,int k)
             cout<<endl;
             return ;
         }
+        return ;
     }
-
-    v1.push_back(v[idx]);
-    sum+=v[idx];
-    subseqeunce(v,idx+1,v1,n,sum,k);
-    v1.pop_back();
-    sum-=v[idx];
-    subseqeunce(v,idx+1,v1,n,sum,k);
-
+    if(v[idx]<=sum)
+    {
+        sum-=v[idx];
+        v1.push_back(v[idx]);
+        subseqeunce(v,idx,v1,n,sum);
+        sum+=v[idx];
+        v1.pop_back();
+    }
+    subseqeunce(v,idx+1,v1,n,sum);
+    
 }
